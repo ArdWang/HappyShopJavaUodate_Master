@@ -15,8 +15,8 @@ public class MainApplication extends BaseApplication{
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
 
-        UMConfigure.init(this,"5ae57549f29d9866eb00016f"
-                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+        //UMConfigure.init(this,"5ae57549f29d9866eb00016f"
+                //,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
         /**
          * 设置组件化的Log开关
          * 参数: boolean 默认为false，如需查看LOG设置为true

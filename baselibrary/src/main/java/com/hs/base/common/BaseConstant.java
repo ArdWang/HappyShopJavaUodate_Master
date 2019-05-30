@@ -10,7 +10,7 @@ public class BaseConstant {
     public static final String IMAGE_SERVER_ADDRESS = "http://p6yij445k.bkt.clouddn.com/";
     //本地服务器地址
     //public static final String SERVER_ADDRESS = "http://192.168.1.71:8080/";
-    //public static final String SERVER_ADDRESS = "http://192.168.0.100:8080/";
+    //public static final String SERVER_ADDRESS = "http://192.168.0.101:8080/";
     public static final String SERVER_ADDRESS="http://119.23.223.146:8080/ShopProject/";
 
     //public static final String SERVER_ADDRESS = "http://192.168.0.135:8080/";

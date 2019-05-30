@@ -13,7 +13,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hs.base.ext.CommonExt;
 import com.hs.base.ui.activity.BaseMvpActivity;
-import com.hs.provider.PushProvider;
+//import com.hs.provider.PushProvider;
 import com.hs.provider.router.RouterPath;
 import com.hs.user.R;
 import com.hs.user.model.User;
