@@ -28,7 +28,15 @@ public class ResetPwdActivity extends BaseMvpActivity<ResetPwdPresenter> impleme
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initData();
     }
+
+    private void initData(){
+        //mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
+    }
+
+
 
     @Override
     protected void initView() {
@@ -42,6 +50,9 @@ public class ResetPwdActivity extends BaseMvpActivity<ResetPwdPresenter> impleme
         buttonEnable(mPwdEt, mConfirmBtn);
         buttonEnable(mPwdConfirmEt, mConfirmBtn);
     }
+
+
+
 
     @Override
     protected int getLayoutResID() {
@@ -57,7 +68,7 @@ public class ResetPwdActivity extends BaseMvpActivity<ResetPwdPresenter> impleme
                 return;
             }
 
-            mPresenter.resetPwd(getIntent().getStringExtra("phone"), mPwdEt.getText().toString(), this);
+            mPresenter.resetPwd(getIntent().getStringExtra("phone"), mPwdEt.getText().toString());
 
 
         }

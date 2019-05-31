@@ -5,6 +5,8 @@ import com.hs.base.rx.BaseObserver;
 import com.hs.user.model.User;
 import com.hs.user.data.net.repository.UserRepository;
 import com.hs.user.presenter.view.LoginView;
+import com.hs.user.service.LoginService;
+import com.hs.user.service.impl.LoginServiceImpl;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -15,20 +17,32 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 
 public class LoginPresenter extends BasePresenter<LoginView> {
     //用户请求体
-    private UserRepository userRepository;
+    private LoginService mService;
 
-    public void getUser(String phone, String pwd,String pushid, LifecycleProvider<ActivityEvent> lifeProvider) {
-        userRepository = new UserRepository();
+    public void getUser(String phone, String pwd,String pushid) {
+
+        mService = new LoginServiceImpl();
+
         //检查网络是否可以使用
         if (!checkNetWork()) {
             return;
         }
         mView.showLoading();
-        userRepository.getUser(phone,pwd,pushid,lifeProvider).subscribe(new BaseObserver<User>(mView){
+
+        mService.getUser(phone,pwd,pushid,lifeAProvider).subscribe(new BaseObserver<User>(mView){
             @Override
             public void onNext(User user) {
                 mView.resultLoginSuccess(user);
             }
         });
+
+
+
+        /*userRepository.getUser(phone,pwd,pushid,lifeProvider).subscribe(new BaseObserver<User>(mView){
+            @Override
+            public void onNext(User user) {
+                mView.resultLoginSuccess(user);
+            }
+        });*/
     }
 }

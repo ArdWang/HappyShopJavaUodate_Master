@@ -14,11 +14,11 @@ import com.umeng.socialize.media.UMWeb;
 
 public class ShareUtils {
     private Context context;
-    private Activity activity;
+    //private Activity activity;
 
     public ShareUtils(Context context,Activity activity){
         this.context = context;
-        this.activity = activity;
+        //this.activity = activity;
 
         UMWeb web = new UMWeb(ShareContent.url);//连接地址
         web.setTitle(ShareContent.title);//标题

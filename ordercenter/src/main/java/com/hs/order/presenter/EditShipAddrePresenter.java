@@ -13,7 +13,7 @@ public class EditShipAddrePresenter extends BasePresenter<EditShipAddreView>{
 
     private ShipAddreRepository shipAddreRepository;
 
-    public void addShipAddre(String shipName,String shipPhone,String shipAddre,LifecycleProvider<ActivityEvent> lifeProvider){
+    public void addShipAddre(String shipName,String shipPhone,String shipAddre){
         shipAddreRepository = new ShipAddreRepository();
 
         if(!checkNetWork()){
@@ -22,7 +22,7 @@ public class EditShipAddrePresenter extends BasePresenter<EditShipAddreView>{
 
         mView.showLoading();
 
-        shipAddreRepository.addShipAddre(shipName,shipPhone,shipAddre,lifeProvider).subscribe(new BaseObserver<Boolean>(mView){
+        shipAddreRepository.addShipAddre(shipName,shipPhone,shipAddre,lifeAProvider).subscribe(new BaseObserver<Boolean>(mView){
             @Override
             public void onNext(Boolean aBoolean) {
                mView.onAddShipAddreResult(aBoolean);

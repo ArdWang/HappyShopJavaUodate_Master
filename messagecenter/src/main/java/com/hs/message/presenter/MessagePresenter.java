@@ -15,7 +15,7 @@ public class MessagePresenter extends BasePresenter<MessageView>{
     private MessageRepository messageRepository;
 
 
-    public void getMessage(Integer pageIndex,Integer pageSize,LifecycleProvider<FragmentEvent> lifecycleProvider){
+    public void getMessage(Integer pageIndex,Integer pageSize){
 
         messageRepository = new MessageRepository();
 
@@ -25,7 +25,7 @@ public class MessagePresenter extends BasePresenter<MessageView>{
 
         mView.showLoading();
 
-        messageRepository.getMessage(pageIndex,pageSize,lifecycleProvider).subscribe(new BaseObserver<MsgInfoResp>(mView){
+        messageRepository.getMessage(pageIndex,pageSize,lifeFProvider).subscribe(new BaseObserver<MsgInfoResp>(mView){
             @Override
             public void onNext(MsgInfoResp msgInfoResp) {
                 mView.onGetMessageInfo(msgInfoResp.getMsgInfos());

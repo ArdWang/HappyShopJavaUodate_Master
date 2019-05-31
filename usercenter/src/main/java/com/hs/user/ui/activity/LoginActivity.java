@@ -27,6 +27,8 @@ import cn.jpush.android.api.JPushInterface;
 /**
  * Created by rnd on 2018/4/8.
  * 登录的Activity界面
+ *
+ *  目前已经更新代码 增加了Service MVP类型 2019年5/31
  */
 
 @Route(path = RouterPath.UserCenter.PATH_LOGIN)
@@ -45,6 +47,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initData();
     }
 
     @Override
@@ -67,6 +70,13 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     }
 
+
+    private void initData(){
+        //mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
+    }
+
+
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_login;
@@ -81,7 +91,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
             /*if(mPushProvider!=null){
                  pushid = mPushProvider.getPushId();
             }*/
-            mPresenter.getUser(mMobileEt.getText().toString(),mPwdEt.getText().toString(),pushId,this);
+            mPresenter.getUser(mMobileEt.getText().toString(),mPwdEt.getText().toString(),pushId);
         }
         else if(i==R.id.mForgetPwdTv){
             intent = new Intent(LoginActivity.this,ForgetPwdActivity.class);

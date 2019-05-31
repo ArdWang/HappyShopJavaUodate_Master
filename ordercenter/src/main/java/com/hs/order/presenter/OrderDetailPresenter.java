@@ -18,7 +18,7 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailView>{
     /*
         根据订单id获取
      */
-    public void getOrderById(Integer orderId,LifecycleProvider<ActivityEvent> lifeProvider){
+    public void getOrderById(Integer orderId){
 
         orderRepository = new OrderRepository();
 
@@ -28,7 +28,7 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailView>{
 
         mView.showLoading();
 
-        orderRepository.getOrderById(orderId,lifeProvider).subscribe(new BaseObserver<Orders>(mView){
+        orderRepository.getOrderById(orderId,lifeAProvider).subscribe(new BaseObserver<Orders>(mView){
             @Override
             public void onNext(Orders orders) {
                 mView.onGetOrderDetailResult(orders);

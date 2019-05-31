@@ -26,6 +26,9 @@ import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.nio.file.Path;
+
 
 public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> implements UserInfoView{
     private RelativeLayout mUserIconView;
@@ -38,6 +41,8 @@ public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> i
     private String mLocalFileUrl;
     private String mRemoteFileUrl;
     private String username,usericon,mobile,sign,sex,userid;
+
+    private File mPhotoFile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +66,11 @@ public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> i
 
     }
 
+
     private void initData(){
+       // mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
+
         //获取当前的数据
         username = AppPrefsUtils.getInstance().getString(ProviderConstant.KEY_SP_USER_NAME);
         usericon = AppPrefsUtils.getInstance().getString(ProviderConstant.KEY_SP_USER_ICON);
@@ -98,8 +107,9 @@ public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> i
 
     @Override
     public void takeSuccess(TResult result) {
-        mLocalFileUrl = result.getImage().getCompressPath();
-        mPresenter.uploadToken(this);
+        mLocalFileUrl = result.getImage().getOriginalPath();
+        mPhotoFile =  new File(mLocalFileUrl);
+        mPresenter.uploadFile(mPhotoFile);
     }
 
     @Override
@@ -151,10 +161,10 @@ public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> i
         }, null);
     }
 
-    @Override
-    public void onGetUploadTokenResult(String result) {
-        uploadImageToQiniu(mLocalFileUrl,result);
-    }
+//    @Override
+//    public void onGetUploadTokenResult(String result) {
+//        uploadImageToQiniu(mLocalFileUrl,result);
+//    }
 
     @Override
     public void onEditUserResult(User result) {

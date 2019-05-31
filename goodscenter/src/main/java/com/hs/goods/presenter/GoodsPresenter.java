@@ -25,7 +25,7 @@ public class GoodsPresenter extends BasePresenter<GoodsView>{
     /**
      * 获取商品列表
      */
-    public void getGoodsList(int categorypid,int categorysid,int page,int pagesize,LifecycleProvider<ActivityEvent> lifeProvider){
+    public void getGoodsList(int categorypid,int categorysid,int page,int pagesize){
         goodsRepository = new GoodsRepository();
         //检查网络是否可以使用
         if (!checkNetWork()) {
@@ -34,7 +34,7 @@ public class GoodsPresenter extends BasePresenter<GoodsView>{
 
         mView.showLoading();
 
-        goodsRepository.getGoodsInfo(categorypid,categorysid,page,pagesize,lifeProvider).subscribe(new BaseObserver<List<GoodsInfo>>(mView){
+        goodsRepository.getGoodsInfo(categorypid,categorysid,page,pagesize,lifeAProvider).subscribe(new BaseObserver<List<GoodsInfo>>(mView){
             @Override
             public void onNext(List<GoodsInfo> goodsInfos) {
                 mView.onGetGoodsResult(goodsInfos);

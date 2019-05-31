@@ -56,6 +56,9 @@ public class OrderFragment extends BaseMvpFragment<OrderListPresenter> implement
     }
 
     private void initView(View view) {
+        //mPresenter.mView = this;
+        mPresenter.lifeFProvider = this;
+
         mMultiStateView = view.findViewById(R.id.mMultiStateView);
         mOrderRv = view.findViewById(R.id.mOrderRv);
 
@@ -116,7 +119,7 @@ public class OrderFragment extends BaseMvpFragment<OrderListPresenter> implement
     private void loadData(){
         CommonExt.startMultiLoading(mMultiStateView);
         mPresenter.getAllOrder(getArguments().getInt(OrderConstant.KEY_ORDER_STATUS,-1)
-                ,this);
+                );
         //mPresenter.getAllOrder(getMdata(), this);
     }
 

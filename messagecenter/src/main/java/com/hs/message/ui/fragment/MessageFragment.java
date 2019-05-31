@@ -54,7 +54,6 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-
     }
 
     @Override
@@ -65,6 +64,10 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
 
     private void initView(View view) {
+
+        //mPresenter.mView = this;
+        mPresenter.lifeFProvider = this;
+
         msgInfos = new ArrayList<>();
         mMultiStateView = view.findViewById(R.id.mMultiStateView);
         swipeToLoadLayout = view.findViewById(R.id.swipeToLoadLayout);
@@ -93,7 +96,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
     private void loadData(){
         CommonExt.startMultiLoading(mMultiStateView);
-        mPresenter.getMessage(pageIndex,pageSize,this);
+        mPresenter.getMessage(pageIndex,pageSize);
     }
 
     @Override

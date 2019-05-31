@@ -6,6 +6,7 @@ import com.hs.base.presenter.view.BaseView;
 import com.hs.base.utils.NetworkUtils;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
  * Created by rnd on 2018/3/15.
@@ -14,7 +15,12 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 
 public class BasePresenter<T extends BaseView>{
 
-    protected T mView;
+    public T mView;
+
+    public LifecycleProvider<ActivityEvent> lifeAProvider;
+
+    public LifecycleProvider<FragmentEvent> lifeFProvider;
+
 
     public void setMV(T v){
         mView = v;

@@ -16,7 +16,7 @@ public class OrderListPresenter extends BasePresenter<OrderListView>{
 
     private OrderRepository orderRepository;
 
-    public void getAllOrder(Integer orderStatus, LifecycleProvider<FragmentEvent> lifeProvider){
+    public void getAllOrder(Integer orderStatus){
         orderRepository = new OrderRepository();
 
         if(!checkNetWork()){
@@ -25,7 +25,7 @@ public class OrderListPresenter extends BasePresenter<OrderListView>{
 
         mView.showLoading();
 
-        orderRepository.getAllOrder(orderStatus,lifeProvider).subscribe(new BaseObserver<OrderResp>(mView){
+        orderRepository.getAllOrder(orderStatus,lifeFProvider).subscribe(new BaseObserver<OrderResp>(mView){
             @Override
             public void onNext(OrderResp orderResp) {
                 mView.onGetOrderListResult(orderResp.getOrders());

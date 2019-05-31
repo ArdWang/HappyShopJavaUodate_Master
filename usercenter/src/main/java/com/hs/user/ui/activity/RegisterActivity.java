@@ -30,6 +30,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initData();
     }
 
     @Override
@@ -51,6 +52,13 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         buttonEnable(mPwdConfirmEt, mRegisterBtn);
     }
 
+    private void initData(){
+        //mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
+    }
+
+
+
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_register;
@@ -69,8 +77,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                 return;
             }
 
-            mPresenter.register(mMobileEt.getText().toString(),mVerifyCodeEt.getText().toString(),mPwdEt.getText().toString(),
-                     this);
+            mPresenter.register(mMobileEt.getText().toString(),mVerifyCodeEt.getText().toString(),mPwdEt.getText().toString());
 
         }
 

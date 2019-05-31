@@ -44,6 +44,8 @@ public class ShipAddressActivity extends BaseMvpActivity<ShipAddressPresenter>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
     }
 
     @Override
@@ -59,6 +61,7 @@ public class ShipAddressActivity extends BaseMvpActivity<ShipAddressPresenter>
 
     @Override
     protected void initView() {
+
         mMultiStateView = findViewById(R.id.mMultiStateView);
         mAddAddressBtn = findViewById(R.id.mAddAddressBtn);
         mAddressRv = findViewById(R.id.mAddressRv);
@@ -98,8 +101,10 @@ public class ShipAddressActivity extends BaseMvpActivity<ShipAddressPresenter>
     /*
        加载数据
     */
-    private void loadData() {
-        mPresenter.getShipList(this);
+    private void loadData()
+    {
+
+        mPresenter.getShipList();
     }
 
 

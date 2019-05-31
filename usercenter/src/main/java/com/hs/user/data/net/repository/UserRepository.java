@@ -31,9 +31,9 @@ public class UserRepository extends BaseRepository{
     /**
      * 用户登录
      */
-    public Observable<User> getUser(String phone, String password, String pushid, LifecycleProvider<ActivityEvent> lifeProvider){
-        return observeat(userApi.getUser(new GetUserReq(phone,password,pushid)),lifeProvider)
-                .flatMap(new BaseFunction<User>());
+    public Observable<User> getUser(String phone, String password, String pushid, LifecycleProvider<ActivityEvent> lifecycleProvider){
+        return observeat(userApi.getUser(new GetUserReq(phone,password,pushid))
+                .flatMap(new BaseFunction<User>()),lifecycleProvider);
     }
 
     /**

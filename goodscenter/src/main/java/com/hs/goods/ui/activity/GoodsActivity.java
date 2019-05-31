@@ -40,6 +40,10 @@ public class GoodsActivity extends BaseMvpActivity<GoodsPresenter> implements Go
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
+
         initRefreshLayout();
         loadingData();
     }
@@ -51,6 +55,7 @@ public class GoodsActivity extends BaseMvpActivity<GoodsPresenter> implements Go
 
     @Override
     protected void initView() {
+
         mMultiStateView = findViewById(R.id.mMultiStateView);
         mSwipeToLoadLayout = findViewById(R.id.swipeToLoadLayout);
         mGoodsRv = findViewById(R.id.swipe_target);
@@ -90,7 +95,7 @@ public class GoodsActivity extends BaseMvpActivity<GoodsPresenter> implements Go
             int categorysid = intent.getIntExtra(GoodsConstant.KEY_CATEGORYS_ID,0);
             //mMultiStateView.setViewState(MultiStateView.VIEW_STATE_LOADING);
             //四个参数
-            mPresenter.getGoodsList(categorppid,categorysid,currentPage,pageSize,this);
+            mPresenter.getGoodsList(categorppid,categorysid,currentPage,pageSize);
         }
 
     }

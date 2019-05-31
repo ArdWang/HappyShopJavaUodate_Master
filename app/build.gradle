@@ -15,6 +15,8 @@ android {
                 JPUSH_PKGNAME : applicationId,
                 qqappid:'tencent100424468'
         ]
+
+        multiDexEnabled true
     }
 
 

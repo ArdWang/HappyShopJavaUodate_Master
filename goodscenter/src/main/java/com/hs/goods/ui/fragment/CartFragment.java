@@ -73,6 +73,9 @@ public class CartFragment extends BaseMvpFragment<CartListPresenter> implements 
 
     private void initView(View view) {
 
+        //mPresenter.mView = this;
+        mPresenter.lifeFProvider = this;
+
         mCartGoodsRv = view.findViewById(R.id.mCartGoodsRv);
         mMultiStateView = view.findViewById(R.id.mMultiStateView);
         mAllCheckedCb = view.findViewById(R.id.mAllCheckedCb);
@@ -108,7 +111,7 @@ public class CartFragment extends BaseMvpFragment<CartListPresenter> implements 
 
     private void loadData() {
         CommonExt.startMultiLoading(mMultiStateView);
-        mPresenter.getCart(this);
+        mPresenter.getCart();
     }
 
 

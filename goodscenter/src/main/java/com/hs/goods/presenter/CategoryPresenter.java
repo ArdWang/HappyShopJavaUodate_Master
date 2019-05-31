@@ -24,14 +24,14 @@ public class CategoryPresenter extends BasePresenter<CategoryView>{
     /**
      * 获取父类的
      */
-    public void getCatepgory(LifecycleProvider<FragmentEvent> lifeProvider){
+    public void getCatepgory(){
         cateGoryRepository = new CateGoryRepository();
         //检查网络是否可以使用
         if (!checkNetWork()) {
             return;
         }
 
-        cateGoryRepository.getCatepGory(lifeProvider).subscribe(new BaseObserver<List<CateGoryp>>(mView){
+        cateGoryRepository.getCatepGory(lifeFProvider).subscribe(new BaseObserver<List<CateGoryp>>(mView){
             @Override
             public void onNext(List<CateGoryp> cateGoryps) {
                 mView.onGetCategorypResult(cateGoryps);

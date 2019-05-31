@@ -24,9 +24,8 @@ public class CartListPresenter extends BasePresenter<CartListView>{
 
     /**
      * 获取购物车数据
-     * @param lifecycleProvider
      */
-    public void getCart(LifecycleProvider<FragmentEvent> lifecycleProvider){
+    public void getCart(){
         cartRepository = new CartRepository();
 
         //检查网络是否可以使用
@@ -36,7 +35,7 @@ public class CartListPresenter extends BasePresenter<CartListView>{
 
         mView.showLoading();
 
-        cartRepository.getCart(lifecycleProvider).subscribe(new BaseObserver<CartResp>(mView){
+        cartRepository.getCart(lifeFProvider).subscribe(new BaseObserver<CartResp>(mView){
             @Override
             public void onNext(CartResp cartResp) {
                 if(!cartResp.getCode().equals("0")){

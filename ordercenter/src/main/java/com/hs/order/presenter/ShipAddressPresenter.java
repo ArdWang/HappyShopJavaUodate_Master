@@ -19,7 +19,7 @@ public class ShipAddressPresenter extends BasePresenter<ShipAddressView>{
 
     private ShipAddreRepository shipAddreRepository;
 
-    public void getShipList(LifecycleProvider<ActivityEvent> lifeProvider){
+    public void getShipList(){
         shipAddreRepository = new ShipAddreRepository();
 
         if(!checkNetWork()){
@@ -28,7 +28,7 @@ public class ShipAddressPresenter extends BasePresenter<ShipAddressView>{
 
         mView.showLoading();
 
-        shipAddreRepository.getShipList(lifeProvider).subscribe(new BaseObserver<ShipAddreResp>(mView){
+        shipAddreRepository.getShipList(lifeAProvider).subscribe(new BaseObserver<ShipAddreResp>(mView){
             @Override
             public void onNext(ShipAddreResp shipAddreResp) {
                 mView.onGetShipAddressResult(shipAddreResp.getShipAddres());

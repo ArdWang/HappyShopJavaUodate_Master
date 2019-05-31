@@ -30,6 +30,8 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPresenter> i
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
         loadData();
     }
 
@@ -40,6 +42,7 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPresenter> i
 
     @Override
     protected void initView() {
+
         mOrderGoodsRv = findViewById(R.id.mOrderGoodsRv);
         mShipNameTv = findViewById(R.id.mShipNameTv);
         mShipMobileTv = findViewById(R.id.mShipMobileTv);
@@ -54,7 +57,7 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPresenter> i
     private void loadData(){
         //Log.i("id的值为：",mOrderId+" qq");
         mPresenter.getOrderById(getIntent().getIntExtra(ProviderConstant.KEY_ORDER_ID,
-                -1),this);
+                -1));
     }
 
     @Override

@@ -32,6 +32,7 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> imple
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initData();
     }
 
     @Override
@@ -50,6 +51,12 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> imple
 
     }
 
+    private void initData(){
+        //mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
+    }
+
+
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_forget_pwd;
@@ -63,7 +70,7 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> imple
             CommonExt.toast("发送验证码成功");
 
         } else if (i == R.id.mNextBtn) {
-            mPresenter.forgetPwd(mMobileEt.getText().toString(), mVerifyCodeEt.getText().toString(), this);
+            mPresenter.forgetPwd(mMobileEt.getText().toString(), mVerifyCodeEt.getText().toString());
 
         }
     }

@@ -35,7 +35,8 @@ public class ShipAddressEditActivity extends BaseMvpActivity<EditShipAddrePresen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
         initData();
     }
 
@@ -46,6 +47,7 @@ public class ShipAddressEditActivity extends BaseMvpActivity<EditShipAddrePresen
 
     @Override
     protected void initView() {
+
         mSaveBtn = findViewById(R.id.mSaveBtn);
         mShipNameEt = findViewById(R.id.mShipNameEt);
         mShipMobileEt = findViewById(R.id.mShipMobileEt);
@@ -74,7 +76,7 @@ public class ShipAddressEditActivity extends BaseMvpActivity<EditShipAddrePresen
 
             if(shipAddre==null){
                 mPresenter.addShipAddre(mShipNameEt.getText().toString(),mShipMobileEt.getText().toString(),
-                        mShipAddressEt.getText().toString(),this);
+                        mShipAddressEt.getText().toString());
             }else{
                 shipAddre.setShipusername(mShipNameEt.getText().toString());
                 shipAddre.setShipusermobile(mShipMobileEt.getText().toString());

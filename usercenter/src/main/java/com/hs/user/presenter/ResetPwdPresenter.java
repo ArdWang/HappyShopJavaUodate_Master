@@ -17,7 +17,7 @@ public class ResetPwdPresenter extends BasePresenter<ResetPwdView>{
 
     private UserRepository userRepository;
 
-    public void resetPwd(String phone, String password, LifecycleProvider<ActivityEvent> lifeProvider) {
+    public void resetPwd(String phone, String password) {
         userRepository = new UserRepository();
         if (!checkNetWork()) {
             return;
@@ -25,7 +25,7 @@ public class ResetPwdPresenter extends BasePresenter<ResetPwdView>{
 
         mView.showLoading();
 
-        userRepository.resetPwd(phone,password,lifeProvider).subscribe(new BaseObserver<Boolean>(mView){
+        userRepository.resetPwd(phone,password,lifeAProvider).subscribe(new BaseObserver<Boolean>(mView){
             @Override
             public void onNext(Boolean t) {
                 mView.resultResetPwdSuccess(t);

@@ -79,6 +79,9 @@ public class GoodsDetailTabOneFragment extends BaseMvpFragment<GoodsDetailPresen
 
     private void initView(View view) {
 
+        mPresenter.mView = this;
+        mPresenter.lifeFProvider = this;
+
         mGoodsDetailBanner = view.findViewById(R.id.mGoodsDetailBanner);
         mSkuView = view.findViewById(R.id.mSkuView);
         mGoodsDescTv = view.findViewById(R.id.mGoodsDescTv);
@@ -136,7 +139,7 @@ public class GoodsDetailTabOneFragment extends BaseMvpFragment<GoodsDetailPresen
      */
     private void loadData() {
         int goodsid = getActivity().getIntent().getIntExtra(GoodsConstant.KEY_GOODS_ID,-1);
-        mPresenter.getGoodsDateilList(goodsid,this);
+        mPresenter.getGoodsDateilList(goodsid);
     }
 
 

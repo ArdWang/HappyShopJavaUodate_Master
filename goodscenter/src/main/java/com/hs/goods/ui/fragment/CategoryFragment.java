@@ -60,6 +60,10 @@ public class CategoryFragment extends BaseMvpFragment<CategoryPresenter> impleme
     }
 
     private void initView(View view) {
+
+        //mPresenter.mView = this;
+        mPresenter.lifeFProvider = this;
+
         mTopCategoryRv = view.findViewById(R.id.mTopCategoryRv);
         mSecondCategoryRv = view.findViewById(R.id.mSecondCategoryRv);
         mMultiStateView = view.findViewById(R.id.mMultiStateView);
@@ -134,7 +138,7 @@ public class CategoryFragment extends BaseMvpFragment<CategoryPresenter> impleme
 
 
     private void loadPData(){
-        mPresenter.getCatepgory(this);
+        mPresenter.getCatepgory();
     }
 
     private void loadSData(int categorypid){

@@ -59,6 +59,10 @@ public class OrderConfirmActivity extends BaseMvpActivity<OrderConfirmPresenter>
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+
+        mPresenter.mView = this;
+        mPresenter.lifeAProvider = this;
+
         loadData();
     }
 
@@ -69,6 +73,7 @@ public class OrderConfirmActivity extends BaseMvpActivity<OrderConfirmPresenter>
 
     @Override
     protected void initView() {
+
         mOrderGoodsRv = findViewById(R.id.mOrderGoodsRv);
         mShipView = findViewById(R.id.mShipView);
         mTotalPriceTv = findViewById(R.id.mTotalPriceTv);
@@ -87,7 +92,8 @@ public class OrderConfirmActivity extends BaseMvpActivity<OrderConfirmPresenter>
     }
 
     private void loadData(){
-        mPresenter.getOrderById(mOrderId,this);
+
+        mPresenter.getOrderById(mOrderId);
     }
 
     @Override

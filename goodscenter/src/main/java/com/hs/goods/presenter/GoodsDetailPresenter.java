@@ -28,7 +28,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView>{
 
 
 
-    public void getGoodsDateilList(int goodsId,LifecycleProvider<FragmentEvent> lifeProvider){
+    public void getGoodsDateilList(int goodsId){
         goodsRepository = new GoodsRepository();
         //检查网络是否可以使用
         if (!checkNetWork()) {
@@ -37,7 +37,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView>{
 
         mView.showLoading();
 
-        goodsRepository.getGoodsDetail(goodsId,lifeProvider).subscribe(new BaseObserver<GoodsInfo>(mView){
+        goodsRepository.getGoodsDetail(goodsId,lifeFProvider).subscribe(new BaseObserver<GoodsInfo>(mView){
             @Override
             public void onNext(GoodsInfo goodsInfo) {
                 mView.onGetGoodsDetailResult(goodsInfo);

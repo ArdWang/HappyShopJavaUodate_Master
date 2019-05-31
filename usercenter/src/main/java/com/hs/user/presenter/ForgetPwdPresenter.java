@@ -18,7 +18,7 @@ public class ForgetPwdPresenter extends BasePresenter<ForgetPwdView>{
 
     private UserRepository userRepository;
 
-    public void forgetPwd(String phone, String verifyCode, LifecycleProvider<ActivityEvent> lifeProvider) {
+    public void forgetPwd(String phone, String verifyCode) {
         userRepository = new UserRepository();
 
         if (!checkNetWork()) {
@@ -27,7 +27,7 @@ public class ForgetPwdPresenter extends BasePresenter<ForgetPwdView>{
 
         mView.showLoading();
 
-        userRepository.forgetPwd(phone,verifyCode,lifeProvider).subscribe(new BaseObserver<Boolean>(mView){
+        userRepository.forgetPwd(phone,verifyCode,lifeAProvider).subscribe(new BaseObserver<Boolean>(mView){
             @Override
             public void onNext(Boolean t) {
                 mView.resultForgetPwdSuccess(t);
