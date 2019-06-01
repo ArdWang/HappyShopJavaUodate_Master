@@ -1,6 +1,10 @@
 package com.hs.user.ui.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +20,7 @@ import com.hs.base.utils.AppPrefsUtils;
 import com.hs.base.utils.GlideUtils;
 import com.hs.provider.common.ProviderConstant;
 import com.hs.user.R;
+import com.hs.user.model.FileBean;
 import com.hs.user.model.User;
 import com.hs.user.presenter.UserInfoPresenter;
 import com.hs.user.presenter.view.UserInfoView;
@@ -26,8 +31,11 @@ import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.nio.file.Path;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 
 public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> implements UserInfoView{
@@ -98,6 +106,13 @@ public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> i
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //每次运行获取一次照片
+        //mPresenter.getFileTest();
+        mPresenter.getFile();
+    }
 
     @Override
     protected int getLayoutResID() {
@@ -108,9 +123,63 @@ public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> i
     @Override
     public void takeSuccess(TResult result) {
         mLocalFileUrl = result.getImage().getOriginalPath();
-        mPhotoFile =  new File(mLocalFileUrl);
+        mPhotoFile =  getFile(getBitmapFromUrl(mLocalFileUrl,300,300));
         mPresenter.uploadFile(mPhotoFile);
     }
+
+
+    public File getFile(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        String time = DateUtil.getCurrentDate("yyyyMMddHHmmss");
+        File file = new File(Environment.getExternalStorageDirectory() + "/"+time+".png");
+        try {
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+            int x = 0;
+            byte[] b = new byte[1024 * 100];
+            while ((x = is.read(b)) != -1) {
+                fos.write(b, 0, x);
+            }
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+
+    private Bitmap getBitmapFromUrl(String url, double width, double height) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true; // 设置了此属性一定要记得将值设置为false
+        Bitmap bitmap = BitmapFactory.decodeFile(url);
+        // 防止OOM发生
+        options.inJustDecodeBounds = false;
+        int mWidth = bitmap.getWidth();
+        int mHeight = bitmap.getHeight();
+        Matrix matrix = new Matrix();
+        float scaleWidth = 1;
+        float scaleHeight = 1;
+        // 按照固定宽高进行缩放
+        if(mWidth <= mHeight) {
+            scaleWidth = (float) (width/mWidth);
+            scaleHeight = (float) (height/mHeight);
+        } else {
+            scaleWidth = (float) (height/mWidth);
+            scaleHeight = (float) (width/mHeight);
+        }
+        // 按照固定大小对图片进行缩放
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, mWidth, mHeight, matrix, true);
+        // 用完了记得回收
+        bitmap.recycle();
+        return newBitmap;
+    }
+
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -170,6 +239,28 @@ public class UserInfoActivity extends BaseTakePhotoActivity<UserInfoPresenter> i
     public void onEditUserResult(User result) {
         CommonExt.toast("修改资料成功");
         UserPrefsUtils.putUserInfo(result);
+    }
+
+    @Override
+    public void upLoadFile(Boolean result) {
+        if(result){
+            mPresenter.getFile();
+        }
+    }
+
+
+    @Override
+    public void onGetFile(FileBean result) {
+        if(result.getFileurl()!=null){
+            GlideUtils.loadUrlImage(UserInfoActivity.this, result.getFileurl(),mUserIconIv);
+            //存储头像
+            AppPrefsUtils.getInstance().putString(ProviderConstant.KEY_SP_USER_ICON,result.getFileurl());
+        }
+    }
+
+    @Override
+    public void onGetFileError(String result) {
+        CommonExt.toast(result);
     }
 
 }

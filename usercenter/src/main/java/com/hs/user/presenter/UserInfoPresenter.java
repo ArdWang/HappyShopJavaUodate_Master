@@ -5,11 +5,11 @@ import android.util.Log;
 import com.hs.base.presenter.BasePresenter;
 import com.hs.base.rx.BaseObserver;
 import com.hs.user.data.net.repository.UploadRepository;
+import com.hs.user.model.Files;
 import com.hs.user.model.User;
 import com.hs.user.data.net.repository.UserRepository;
 import com.hs.user.presenter.view.UserInfoView;
 import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.io.File;
@@ -54,18 +54,39 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView>{
             uploadRepository.uploadFile(body, lifeAProvider).subscribe(new BaseObserver<Boolean>(mView) {
                 @Override
                 public void onNext(Boolean aBoolean) {
-                    Log.i("success", aBoolean.toString());
+                    mView.upLoadFile(aBoolean);
                 }
             });
         }else{
             Log.i("error==>", "error===>");
         }
 
-
     }
 
+    /**
+     * 获取照片
+     */
+    public void getFile(){
+        uploadRepository = new UploadRepository();
 
+        if (!checkNetWork()) {
+            return;
+        }
 
+        mView.showLoading();
+
+        uploadRepository.getFile(lifeAProvider).subscribe(new BaseObserver<Files>(mView){
+            @Override
+            public void onNext(Files files) {
+                if(files.getCode().equals("200")) {
+                    mView.onGetFile(files.getFileBean());
+                }else{
+                    mView.onGetFileError(files.getMessage());
+                }
+            }
+        });
+
+    }
 
 
 

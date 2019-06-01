@@ -3,6 +3,7 @@ package com.hs.user.data.net.api;
 
 import com.hs.base.data.net.protocol.BaseResp;
 import com.hs.user.data.net.protocol.UploadDataReq;
+import com.hs.user.model.Files;
 
 
 import io.reactivex.Observable;
@@ -24,6 +25,13 @@ public interface UploadApi {
     @Multipart
     @POST("file/ftpUpload")
     Observable<BaseResp<Boolean>> upLoadFile(@Part MultipartBody.Part file);
+
+
+    /**
+     * 获取图片
+     */
+    @POST("file/getFile")
+    Observable<Files> getFile();
 
 
 }

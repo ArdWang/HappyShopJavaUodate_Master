@@ -1,6 +1,7 @@
 package com.hs.base.ui.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -31,18 +32,17 @@ public class BaseActivity extends RxAppCompatActivity{
         ActivityCollector.addActivity(this);
     }
 
+    @SuppressLint("CheckResult")
     private void requestPermissions() {
         RxPermissions rxPermission = new RxPermissions(this);
         rxPermission
-                .requestEach(Manifest.permission.ACCESS_FINE_LOCATION,
+                .requestEach(
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_CALENDAR,
                         Manifest.permission.READ_CONTACTS,
                         Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.READ_SMS,
                         Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.SEND_SMS)
+                        Manifest.permission.CAMERA)
                 .subscribe(new Consumer<Permission>() {
                     @Override
                     public void accept(Permission permission) throws Exception {

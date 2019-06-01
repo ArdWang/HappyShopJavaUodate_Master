@@ -1,6 +1,8 @@
 package com.hs.base.rx;
 
 
+import android.util.Log;
+
 import com.hs.base.data.net.protocol.BaseResp;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;

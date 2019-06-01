@@ -1,13 +1,13 @@
 package com.hs.user.model;
 
 /*
- *  Copyright © 2018 Radiance Instruments Ltd. All rights reserved.
+ *  Copyright  2018 Radiance Instruments Ltd. All rights reserved.
  *  author ArdWang
  *  email 278161009@qq.com
- *  Created by ArdWang on 5/31/19.
+ *  Created by ArdWang on 2019/5/31.
  */
 
-public class File {
+public class FileBean {
     private Integer fileid;
 
     public Integer getUserid() {

@@ -13,7 +13,7 @@ public class BaseConstant {
     //public static final String SERVER_ADDRESS = "http://192.168.0.101:8080/";
     //public static final String SERVER_ADDRESS="http://119.23.223.146:8080/ShopProject/";
 
-    public static final String SERVER_ADDRESS = "http://192.168.1.19:8080/";
+    public static final String SERVER_ADDRESS = "http://192.168.3.2:8080/";
 
     //SP表名
     public static final String TABLE_PREFS = "HappyShop";
